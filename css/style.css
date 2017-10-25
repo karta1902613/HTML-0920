@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    pandding: 0;
+}
+#wrap{
+    width:900px;
+    background-color: #7ce0ff;
+    margin: 0 auto auto auto;
+}
+#footer{
+    height: 80px;
+    width:100%;
+    background-color: aquamarine;
+    pandding-top:1em;
+
+}
