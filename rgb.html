@@ -8,6 +8,21 @@
 <link rel="stylesheet" href="style.css">
 
 <body>
+
+
+<button onclick="myFunction()">姓名</button>
+
+<p id="demo"></p>
+
+<script>
+    function myFunction() {
+        var person = prompt("輸入名字");
+        if (person != null) {
+            document.getElementById("demo").innerHTML =
+                 person;
+        }
+    }
+</script>
 <form action="test.php" method="post">
     <p>r=<input type="text"></p>
 
@@ -18,8 +33,16 @@
     <p><input type="submit"></p>
 
 </form>
-<a href="test.php" ><button class="btn btn-primary">Color Table</button></a>
+<a href="#" ><button class="btn btn-primary">Color Table</button></a>
 <h1>test</h1>
+<button onclick="creatOne()">新增圖片</button>
+<button onclick="creatFive()">新增5張圖片</button>
+<hr>
 
+http://120.108.117.245/~jackjow/WebDemo/Lesson3_Javascript/Javascript22.html
+
+<script>
+
+</script>
 </body>
 </html>
