@@ -7,15 +7,15 @@
 
 /* Set height of the grid so .sidenav can       be 100% (adjust as needed) */
 .row.content {
-    background-color: #a8d9f1;
-    height: 830px
+    background-color: #def1bb;
+    height: 830px;
 
 }
 
 /* Set gray background color and 100% height */
 .sidenav {
     padding-top: 20px;
-    background-color: #eaf1d2;
+    background-color: #a8d9f1;
     height: 100%;
 }
 
@@ -34,3 +34,15 @@ footer {
     }
     .row.content {height:auto;}
 }
+hr {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+
+
