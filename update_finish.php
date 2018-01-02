@@ -14,7 +14,6 @@ if($_SESSION['id'] != null)
 
     //更新資料庫資料語法
     $sql_update = "update DataList set title = $title";
-    
     //$sql_update = "Update da Set number = '$number', name = '$name', junior = '$junior', wish = '$wish' WHERE number = '$number'";
     if(mysqli_query($sql))
     {

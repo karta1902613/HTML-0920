@@ -1,21 +1,18 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>陳兆南副教授的網頁</title>
+    <title>陳兆南副教授-常用連結</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/knowledge/https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body bgcolor="#7fffd4">
+<body>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -29,12 +26,12 @@ session_start();
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.php">首頁</a></li>
+                <li><a href="index.php  ">首頁</a></li>
                 <li><a href="resume.php">簡歷</a></li>
                 <li><a href="academic.php">學術</a></li>
                 <li><a href="book.php">著作</a></li>
                 <li><a href="student.php">學生</a></li>
-                <li><a href="link.php">常用連結</a></li>
+                <li class="active"><a href="link.php">常用連結</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php
@@ -43,7 +40,7 @@ session_start();
                 }else{
                     echo " <li><a href='login.html'><span class='glyphicon glyphicon-log-in'></span> Login</a></li> "  ;
                 }
-                    ?>
+                ?>
             </ul>
         </div>
     </div>
@@ -57,44 +54,13 @@ session_start();
             <li>Office：8019</li>
             <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
         </div>
-        <div class="col-sm-8 text-left" >
-
-
-            <?php
-           include("mysql_connect.inc.php");
-            mysqli_query("SET NAMES utf8");
-            $result = mysqli_query("SELECT `title` FROM `DataList` WHERE `title` = '$title'");
-
-            while ($row = mysqli_fetch_array($result,  MYSQLI_ASSOC)) {
-                echo $row['title'];
-            }
-
-           
-           // $result = mysqli_query("select * from DataList");
-           // $rs=mysqli_fetch_row($result);
-           //// $row = mysqli_fetch_row($result);
-           // echo "$rs[0] <br>";
-
-            if($_SESSION['id'] != null) {
-                //將$_SESSION['id']丟給$id
-                //這樣在下SQL語法時才可以給搜尋的值
-                $title = $_SESSION['title'];
-                //若以下$id直接用$_SESSION['username']將無法使用
-              //  $sql = "SELECT * FROM DataList where title='$title'";
-              //  $result = mysqli_query($sql);
-                $row = mysqli_fetch_row($result);
-
-                echo "<form name=\"form\" method=\"post\" action=\"update_finish.php\">";
-                echo "標題：<input type=\"text\" name=\"title\" value=\"$rs[0]\" />";
-                echo "<input type=\"submit\" name=\"button\" value=\"確定\" />";
-                echo "</form>";
-            }
-            else{}
-            ?>
+        <div class="col-sm-8 text-left">
+            <h1>常用連結</h1>
             <hr>
-            <h3>研究領域：</h3>
-            <p>影像顯示科技、多媒體及3D遊戲設計、VLSI技術</p>
-            <p align="center"><img src="ieet.jpg" width="70%"  alt="陳兆南老師"></p>
+            <h3>亞洲大學:<a href="http://www.asia.edu.tw/">http://www.asia.edu.tw/</a></h3>
+            <h3>亞洲大學資工系:<a href="http://csie.asia.edu.tw/">http://csie.asia.edu.tw/</a></h3>
+            <h3>亞洲大學資訊電機學院:<a href="http://www.ccs.asia.edu.tw/bin/home.php">http://www.ccs.asia.edu.tw/bin/home.php</a></h3>
+
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
