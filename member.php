@@ -1,12 +1,5 @@
 <?php
 session_start();
-/**
- * Created by PhpStorm.
- * User: USER
- * Date: 2017/11/22
- * Time: 上午 10:36
- */
-
 ?>
 <html lang="en">
 <head>
@@ -37,7 +30,7 @@ if($id != null && $pw != null && $row[0] == $id && $row[2] == $pw)
     //將帳號寫入session，方便驗證使用者身份
     $_SESSION['username'] = $id;
     echo '登入成功!';
-    echo '<meta http-equiv=REFRESH CONTENT=1;url=index.html>';
+    echo '<meta http-equiv=REFRESH CONTENT=1;url=admin.php>';
 }
 else
 {

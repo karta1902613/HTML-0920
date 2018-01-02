@@ -1,15 +1,20 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>陳兆南老師的常用連結</title>
+    <title>陳兆南副教授的網頁</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/knowledge/https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body bgcolor="#7fffd4">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -23,15 +28,21 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="resume.html">簡歷</a></li>
-                <li><a href="academic.html">學術</a></li>
-                <li><a href="book.html">著作</a></li>
-                <li><a href="student.html">學生</a></li>
-                <li class="active"><a href="link">常用連結</a></li>
+                <li><a href="index.php">首頁</a></li>
+                <li><a href="resume.php">簡歷</a></li>
+                <li><a href="academic.php">學術</a></li>
+                <li><a href="book.php">著作</a></li>
+                <li><a href="student.php">學生</a></li>
+                <li><a href="link.php">常用連結</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <?php
+                if($_SESSION['id'] != null){
+                    echo " <li><a href='logout.php'><span class='glyphicon glyphicon-log-in'></span> Logout</a></li> "  ;
+                }else{
+                    echo " <li><a href='login.html'><span class='glyphicon glyphicon-log-in'></span> Login</a></li> "  ;
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -45,19 +56,26 @@
             <li>Office：8019</li>
             <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
         </div>
-        <div class="col-sm-8 text-left">
-            <h1></h1>
-            <p> </p>
+        <div class="col-sm-8 text-left" >
+            <h3>半導體教學</h3>
             <hr>
-            <h3></h3>
-            <p></p>
+            <div>
+                <img src="s1.gif" width="33%" alt="陳兆南老師">
+                <img src="s2.gif" width="33%" alt="陳兆南老師">
+                <img src="s3.gif" width="33%" alt="陳兆南老師">
+            </div>
+
+
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
-                <li>本學期開課課程</li>
+                <li><a href="course.php" >本學期開課課程</a></li>
             </div>
             <div class="well">
-                <li>檔案下載</li>
+                <li><a href="semiconductor.php" >半導體教學</a></li>
+            </div>
+            <div class="well">
+                <li><a href="tutorclass.php" >學輔時間課程</a></li>
             </div>
         </div>
     </div>

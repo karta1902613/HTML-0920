@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>陳兆南老師的著作</title>
+    <title>陳兆南副教授-學生</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,15 +26,21 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="resume.html">簡歷</a></li>
-                <li><a href="academic.html">學術</a></li>
-                <li class="active"><a href="book.html">著作</a></li>
-                <li><a href="student.html">學生</a></li>
-                <li><a href="link">常用連結</a></li>
+                <li><a href="index.php">首頁</a></li>
+                <li><a href="resume.php">簡歷</a></li>
+                <li><a href="academic.php">學術</a></li>
+                <li><a href="book.php">著作</a></li>
+                <li  class="active"><a href="student.php">學生</a></li>
+                <li><a href="link.php">常用連結</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <?php
+                if($_SESSION['id'] != null){
+                    echo " <li><a href='logout.php'><span class='glyphicon glyphicon-log-in'></span> Logout</a></li> "  ;
+                }else{
+                    echo " <li><a href='login.html'><span class='glyphicon glyphicon-log-in'></span> Login</a></li> "  ;
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -48,18 +55,33 @@
             <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
         </div>
         <div class="col-sm-8 text-left">
-            <h1></h1>
-            <p> </p>
+            <h1>學生</h1>
+
             <hr>
-            <h3></h3>
-            <p></p>
+            <h3>薛羽利(博士班)</h3>
+            <h3>聯絡方式：</h3>
+            <h4><a href="maulto:macoto0808@hotmail.com">macoto0808@hotmail.com</a> </h4>
+            <h3>研究方向：</h3>
+            <h4>透明導電薄膜材料開發與特性研究</h4>
+            <h4>奈米抗菌材料開發與特性研究</h4>
+            <h4>超級電容器電極材料開發與特性研究</h4>
+            <hr>
+            <h3>何映融(博士班)</h3>
+            <h3>聯絡方式：</h3>
+            <h4><a href="maulto:yingrong0702@gmail.com">yingrong0702@gmail.com</a> </h4>
+            <h3>研究方向：</h3>
+            <h4>氧化物透明導電薄膜材料研究</h4>
+
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
-                <li>本學期開課課程</li>
+                <li><a href="course.php" >本學期開課課程</a></li>
             </div>
             <div class="well">
-                <li>檔案下載</li>
+                <li><a href="semiconductor.php" >半導體教學</a></li>
+            </div>
+            <div class="well">
+                <li><a href="tutorclass.php" >學輔時間課程</a></li>
             </div>
         </div>
     </div>
