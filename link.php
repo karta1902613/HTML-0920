@@ -59,7 +59,7 @@ session_start();
             <hr>
             <h3>亞洲大學:<a href="http://www.asia.edu.tw/">http://www.asia.edu.tw/</a></h3>
             <h3>亞洲大學資工系:<a href="http://csie.asia.edu.tw/">http://csie.asia.edu.tw/</a></h3>
-            <h3>亞洲大學資訊電機學院:<a href="http://www.ccs.asia.edu.tw/bin/home.php">http://www.ccs.asia.edu.tw/bin/home.php</a></h3>
+
 
         </div>
         <div class="col-sm-2 sidenav">

@@ -62,30 +62,22 @@ session_start();
 
             <?php
            include("mysql_connect.inc.php");
-            mysqli_query("SET NAMES utf8");
-            $result = mysqli_query("SELECT `title` FROM `DataList` WHERE `title` = '$title'");
-
-            while ($row = mysqli_fetch_array($result,  MYSQLI_ASSOC)) {
-                echo $row['title'];
-            }
-
-           
-           // $result = mysqli_query("select * from DataList");
-           // $rs=mysqli_fetch_row($result);
-           //// $row = mysqli_fetch_row($result);
-           // echo "$rs[0] <br>";
+            $sql = "SELECT * FROM DataList";
+            $result = mysqli_query($link,$sql);
+            $row = mysqli_fetch_row($result);
+            echo "<h1> $row[0] </h1>";
+                //echo "<h1>陳兆南專任副教授</h1>";
+            $id = $_SESSION['id'];
 
             if($_SESSION['id'] != null) {
                 //將$_SESSION['id']丟給$id
                 //這樣在下SQL語法時才可以給搜尋的值
                 $title = $_SESSION['title'];
                 //若以下$id直接用$_SESSION['username']將無法使用
-              //  $sql = "SELECT * FROM DataList where title='$title'";
-              //  $result = mysqli_query($sql);
-                $row = mysqli_fetch_row($result);
+
 
                 echo "<form name=\"form\" method=\"post\" action=\"update_finish.php\">";
-                echo "標題：<input type=\"text\" name=\"title\" value=\"$rs[0]\" />";
+                echo "標題：<input type=\"text\" name=\"title\" value=$row[0]>";
                 echo "<input type=\"submit\" name=\"button\" value=\"確定\" />";
                 echo "</form>";
             }
@@ -94,7 +86,7 @@ session_start();
             <hr>
             <h3>研究領域：</h3>
             <p>影像顯示科技、多媒體及3D遊戲設計、VLSI技術</p>
-            <p align="center"><img src="ieet.jpg" width="70%"  alt="陳兆南老師"></p>
+            <p align="center"><img src="ieet.jpg" width="65%"  alt="陳兆南老師"></p>
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">

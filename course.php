@@ -57,7 +57,8 @@ session_start();
             <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
         </div>
         <div class="col-sm-8 text-left" >
-            <h2>106學年度上學期教授科目</h2>
+            <h2>106學年度上學期教授科目 <input type="button" value="PDF" onclick="location.href='apdf.php'"></h2>
+
             <hr>
             <table width="99%" align="center" cellpadding="0" cellspacing="0" class="standard-table"  border=" 2px solid #76a8ff">
                 <tr bgcolor="#BFDFFF" align=middle  >
