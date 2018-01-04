@@ -150,7 +150,7 @@ session_start();
 
         <?php
         if($_SESSION['id'] != null){
-
+       
 
             echo '<form name="form" method="post" action="addPapers.php"><hr>
                 論文編號：<input type="text" size="10" name="number" /> <br>
