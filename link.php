@@ -22,7 +22,7 @@ session_start();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="http://csie.asia.edu.tw/"><img src="csie.png" width="30px" ></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -59,7 +59,7 @@ session_start();
             <hr>
             <h3>亞洲大學:<a href="http://www.asia.edu.tw/">http://www.asia.edu.tw/</a></h3>
             <h3>亞洲大學資工系:<a href="http://csie.asia.edu.tw/">http://csie.asia.edu.tw/</a></h3>
-            <h3>亞洲大學資訊電機學院:<a href="http://www.ccs.asia.edu.tw/bin/home.php">http://www.ccs.asia.edu.tw/bin/home.php</a></h3>
+           
 
         </div>
         <div class="col-sm-2 sidenav">
