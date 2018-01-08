@@ -19,7 +19,6 @@ session_start();
             height: auto;
         }
         /*table*/
-
         .tb_main {
             border-collapse: collapse;
             border: 2px solid #76a8ff;
@@ -42,7 +41,6 @@ session_start();
         }
         .tb_main thead th, tfoot th {
             border: 1px solid #76a8ff;
-
             font-size: 1em;
             font-weight: bold;
             color: #444;
@@ -54,7 +52,6 @@ session_start();
             text-decoration: none;
             border-bottom: 1px dotted #76a8ff;
         }
-
         .tb_main th a {
             background: transparent;
             color: #72724c;
@@ -70,10 +67,6 @@ session_start();
             color: #333;
             background: #fff;
         }
-
-
-
-
     </style>
 </head>
 <body>
@@ -112,24 +105,26 @@ session_start();
 
 <div class="container-fluid">
     <div class="row content">
-            <h1 align="center">期刊論文</h1>
+        <h1 align="center">期刊論文</h1>
 
-<hr>
+        <hr>
 
-            <?php
-            include("mysql_connect.inc.php");
-            $sql = "SELECT * FROM Papers";
-            $result = mysqli_query($link,$sql);
-            $row = mysqli_fetch_row($result);
-            ?>
-        <table cellpadding="0" cellspacing="0" class="tb_main" align="center">
         <?php
+        include("mysql_connect.inc.php");
+        $sql = "SELECT * FROM Papers";
+        $result = mysqli_query($link,$sql);
+        $row = mysqli_fetch_row($result);
+        ?>
+        <table cellpadding="0" cellspacing="0" class="tb_main" align="center">
+            <?php
+            $num = 1;
             while($row=mysqli_fetch_array($result))
             {
 
                 echo "<tr class=\"odd\">";
                 echo "<th>";
-                echo $row["number"];
+                echo $num;
+                //echo $row["number"];
                 echo "</th>";
                 echo "<th>";
                 echo $row["title"]."<br>";
@@ -137,28 +132,75 @@ session_start();
                 echo $row["date"]."<br>";
                 echo "</th>";
                 echo "<tr>";
+                $num ++;
             }
 
             ?>
         </table>
-        &nbsp;
-
-
-
-
-
 
         <?php
         if($_SESSION['id'] != null){
-       
 
-            echo '<form name="form" method="post" action="addPapers.php"><hr>
-                論文編號：<input type="text" size="10" name="number" /> <br>
-                論文名稱：<input type="text" size="100" name="title" /> <br>
-                論文作者：<input type="text" size="100" name="author" /> <br>
-                論文日期：<input type="text" size="50" name="date" /> <br>
-                <p align="center"><input type="submit" name="button"  value="確定" /></p>
-                </form>';
+            echo '<hr>';
+            echo' <div class="container">
+     
+              <div id="add" class="tab-pane fade in active">';
+            echo '<form name="form" method="post" action="addPapers.php">';
+            echo"  論文編號：<input type='text' size='5%' name='number' value='$num' readonly=\"readonly\"  /> <br>";
+            echo'   論文名稱：<input type="text" size="80%" name="title"  /> <br>
+                論文作者：<input type="text" size="80%" name="author"  /> <br>
+                論文日期：<input type="text" size="50%" name="date" /> <br>
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+                </div>
+                 </div>
+                 
+                 <hr>
+                 ';
+            $id = $_SESSION['id'];
+
+            $number = $_SESSION['number'];
+            $title = $_SESSION['title'];
+            $author = $_SESSION['author'];
+            $date = $_SESSION['date'];
+            echo"
+        <form name=\"form\" method=\"post\" action=\"update_papers.php\">
+        <div class=\"container\">
+        論文編號：
+  <select name='number' id='form' >
+  ";
+            for( $i=1 ; $i<$num ; $i++ ){
+                echo"<option name=\"number\" value=$i>$i</option>";
+            }
+            echo"
+
+</select>
+                <br>   論文名稱：<input type=\"text\" size=\"80%\" name=\"title\" value=$row[1] > <br>
+                論文作者：<input type=\"text\" size=\"80%\" name=\"author\" value=$row[2] > <br>
+                論文日期：<input type=\"text\" size=\"50%\" name=\"date\"  value=$row[3]> <br>
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+                </div>
+                <hr>
+              
+           
+           
+            <form name=\"form\" method=\"post\" action=\"delete_papers.php\">
+             <div class=\"container\">
+              論文編號：
+            <select name='number' id='form'>
+                ";
+
+            for( $d=1 ; $d<$num ; $d++ ){
+                echo"<option name=\"number\" value=$d>$d</option>";
+
+            }
+            echo"</select> <br>";
+            echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+            echo" <form>
+               
+                    </div>
+            ";
         }else{
         }
         ?>
