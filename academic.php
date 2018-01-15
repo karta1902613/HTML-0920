@@ -10,7 +10,13 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/autoadmstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/autostyle.css\"> "  ;
+    }
+    ?>
     <style>
         /* table */
         .tb_main {
@@ -103,140 +109,223 @@ session_start();
 
 <div class="container-fluid">
     <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p class= text-centeralign="center"><img src="chencn.jpg" width="100%" alt="陳兆南老師"></p>
-            <li>Tel：+886-4-23323456  ext.48019</li>
-            <li>Office：8019</li>
-            <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
-        </div>
-        <div class="col-sm-8">
-            <div class="container">
-                <h1>學術</h1>
+
+                <h1 align="center">學術</h1>
+<div align="center">
                 <ul class="nav nav-pills">
                     <li class="active"><a data-toggle="pill" href="#home">研究計畫</a></li>
-                    <li><a data-toggle="pill" href="#menu1">學術合作</a></li>
                     <li><a data-toggle="pill" href="#menu2">展演</a></li>
                 </ul>
+    </div>
                 <hr>
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        <h3>研究計畫</h3>
+                        <h3 align="center">研究計畫</h3>
                         <div class="entry">
-                            <table width="70%" border="0" cellpadding="0" cellspacing="0" class="tb_main">
-                                <tr class="odd">
-                                    <td width="5%">1</td>
-                                    <td>，20160821140834，陳兆南(CHAO-NAN CHEN),黃俊杰，國科會，應用全溶液製程及奈米材料超音波噴塗技術於軟性基板進行氧化物半導  體薄膜電體開發之研究，2015.8.1 ~ 2016.10.31</td>
-                                </tr>
-                                <tr>
-                                    <td width="5%">2</td>
-                                    <td>，20150410002636，時文中(Wen-Chung Shih),陳兆南(CHAO-NAN CHEN)、洪振偉(Zeng-Wei Hong)、林智揚(CHIH-YANG LIN)，教育部，教育部資通訊軟體創新人才推升推廣計畫-- 智慧終端與人機互動，2014.2.1 ~ 2015.1.31</td>
-                                </tr>
-                                <tr class="odd">
-                                    <td width="5%">3</td>
-                                    <td>，20150410002305，陳永欽(YEONG-CHIN CHEN),陳兆南(CHAO-NAN CHEN)，國科會，鐃鈸型壓電換能器設計及其在能量擷取的應用(II/II)，2013.8.1 ~ 2014.7.31</td>
-                                </tr>
-                                <tr>
-                                    <td width="5%">4</td>
-                                    <td>，20150410001528，，國科會，準分子雷射結合溶液製程於可撓式軟性基板進行石墨烯材料及新元件開發之研究(2)，2012.8.1 ~ 2013.7.31</td>
-                                </tr>
-                                <tr class="odd">
-                                    <td width="5%">5</td>
-                                    <td>，20150410002012，陳永欽(YEONG-CHIN CHEN),陳兆南(CHAO-NAN CHEN)，國科會，鐃鈸型壓電換能器設計及其在能量擷取的應用，2012.8.1 ~ 2013.7.31</td>
-                                </tr>
-                                <tr>
-                                    <td width="5%">6</td>
-                                    <td>，20150410003251，陳永欽(YEONG-CHIN CHEN),洪振偉(Zeng-Wei Hong)、陳兆南(CHAO-NAN CHEN)、林智揚(CHIH-YANG LIN)，國科會，教育部資通訊軟體創新人才推升推廣計畫-- 數位匯流計畫，2012.2.1 ~ 2014.1.31</td>
-                                </tr>
-                                <tr class="odd">
-                                    <td width="5%">7</td>
-                                    <td>，20120202214739，,陳永欽(Chen Yeong-Chin)，國科會，準分子雷射結合溶液製程於可撓式軟性基板進行石墨烯材料及新元件開發之研究，2011.8.1 ~ 2012.7.31</td>
-                                </tr>
-                                <tr>
-                                    <td width="5%">8</td>
-                                    <td>，20110506154637，，國科會，應用準分子雷射技術於改進OCB模式液晶轉態特性之研究，2009.9.1 ~ 2010.7.31</td>
-                                </tr>
+                            <?php
+                            //新增
+                            include("mysql_connect.inc.php");
+                            $sql = "SELECT * FROM Research";
+                            $result = mysqli_query($link,$sql);
+                            ?>
+                            <table  cellpadding="0" cellspacing="0" class="tb_main" align="center">
+                                <?php
+                                $num = 1;
+                                while($row=mysqli_fetch_array($result)){
+                                    echo "<tr class=\"odd\">";
+                                    echo "<th>";
+                                    echo $num;
+                                    echo "</th>";
+                                    echo "<th>";
+                                    echo $row["date"]."<br>";
+                                    echo $row["author"] ."，";
+                                    echo $row["unit"]."<br>";
+                                    echo $row["title"]."<br>";
+                                    echo $row["time"]."<br>";
+                                    echo "</th>";
+                                    echo "<tr>";
+                                    $num ++;
+                                }
+                                ?>
                             </table>
-                            <p>&nbsp;</p>
+                            <?php
+                            if($_SESSION['id'] != null){
+                                echo '<hr>';
+                                echo' 
+                    <div class="container">
+                        <div id="add" class="tab-pane fade in active">';
+                                echo '<form name="form" method="post" action="add_research.php">';
+                                echo'   計畫日期：<input type="text" size="45" name="date"  /> <br>
+                                        計畫作者：<input type="text" size="45" name="author"  /> <br>
+                                        部門單位：<input type="text" size="45" name="unit" /> <br>
+                                        計畫名稱：<input type="text" size="45" name="title" /> <br>
+                                        計畫時間：<input type="text" size="45" name="time" /> <br>
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+               </div>
+              </div>         
+                 <hr>';
+                                $id = $_SESSION['id'];
+
+                                $date = $_SESSION['date'];
+                                $author = $_SESSION['author'];
+                                $unit = $_SESSION['unit'];
+                                $title = $_SESSION['title'];
+                                $time = $_SESSION['time'];
+                                //修改
+                                echo"
+                                
+        <form name=\"form\" method=\"post\" action=\"update_research.php\">
+        <div class=\"container\">
+        計畫選項：
+  <select name='number' id='form' >";
+                                $res = mysqli_query($link,$sql);
+                                $i=0;
+                                while($rs=mysqli_fetch_array($res)) {
+                                    $i++;
+                                    $x=$rs["number"];
+                                    echo"<option name=\"number\" value=\"$x\">$i</option>";
+                                }
+                                echo"
+  </select>
+                <br>
+                      計畫日期：<input type=\"text\" size=\"45\" name=\"date\"  /> <br>
+                      計畫作者：<input type=\"text\" size=\"45\" name=\"author\"  /> <br>
+                      部門單位：<input type=\"text\" size=\"45\" name=\"unit\" /> <br>
+                      計畫名稱：<input type=\"text\" size=\"45\" name=\"title\" /> <br>
+                      計畫時間：<input type=\"text\" size=\"45\" name=\"time\" /> <br>                     
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+                <hr>";
+                                //刪除
+                      echo "       
+            <form name=\"form\" method=\"post\" action=\"delete_research.php\">
+             <div class=\"container\">
+              計畫選項：
+            <select name='number' id='form'>";
+                                $re = mysqli_query($link,$sql);
+                                $j=1;
+                                while($rd=mysqli_fetch_array($re)) {
+                                    $d=$rd["number"];
+                                    echo"<option name=\"number\" value=\"$d\">$j</option>";
+                                       $j++;
+                                }
+            echo"</select> <br>";
+                                echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                                echo" </form>
+               
+                    </div>";
+                            }else{
+                            }
+                            ?>
                         </div>
-
                     </div>
-                    <div id="menu1" class="tab-pane fade">
-                        <h3>學術合作教授</h3>
-                        <table width="50%" border="0" cellpadding="0" cellspacing="0" class="tb_main">
-                            <tr class="odd" align="center">
-                                <td colspan="2" >大葉大學電機系黃俊杰 (JNUG-JIE HUANG)</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">現職</td>
-                                <td> 電機工程學系 副教授 兼 系主任</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">學歷</td>
-                                <td>中山大學電機工程學系 博士</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">研究室分機</td>
-                                <td>(04)8511888 # 2227</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">實驗室分機</td>
-                                <td>(04)8511888 4123 # 24</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">研究室</td>
-                                <td>工學院(H313)</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">E-mail</td>
-                                <td>jjhuang@mail.dyu.edu.tw</td>
-                            </tr>
-                            <tr class="odd">
-                                <td colspan="2" align="center">學術背景</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">博士</td>
-                                <td>中山大學電機工程學系</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">碩士</td>
-                                <td>中山大學電機工程學系</td>
-                            </tr>
-                            <tr class="odd">
-                                <td width="20%" align="center">學士</td>
-                                <td>大葉大學電機工程學系</td>
-                            </tr>
-                        </table>
 
-                    </div>
-                    <div id="menu2" class="tab-pane fade">
+                    <div id="menu2" class="tab-pane fade" align="center">
                         <h3>展演</h3>
                         <div class="entry">
-                            <table width="50%" border="0" cellpadding="0" cellspacing="0" class="tb_main">
-                                <tr class="odd">
-                                    <td width="5%">1</td>
-                                    <td>2016-04-18 ~ 2016-04-18 <br />2016 台中資訊應用創作展 ， 孫佳吟／陳兆南 <br> 台中文化創意產業園區 <br> </td>
-                                </tr>
-                            </table>
-                            <p>&nbsp;</p>
-                        </div>
 
-                    </div>
-                    <div id="menu3" class="tab-pane fade">
-                    </div>
+                            <?php
+                            //新增
+                            include("mysql_connect.inc.php");
+                            $sql = "SELECT * FROM Exhibit";
+                            $result = mysqli_query($link,$sql);
+                            ?>
+                            <table  cellpadding="0" cellspacing="0" class="tb_main" align="center">
+                                <?php
+                                $num = 1;
+                                while($row=mysqli_fetch_array($result)){
+                                    echo "<tr class=\"odd\">";
+                                    echo "<th>";
+                                    echo $num;
+                                    echo "</th>";
+                                    echo "<th>";
+                                    echo $row["date"]."<br>";
+                                    echo $row["title"]."，";
+                                    echo $row["author"] ."<br>";
+                                    echo $row["place"]."<br>";
+                                    echo "</th>";
+                                    echo "<tr>";
+                                    $num ++;
+                                }
+                                ?>
+                            </table>
+                            <?php
+                            if($_SESSION['id'] != null){
+                                echo '<hr>';
+                                echo' 
+                    <div class="container">
+                        <div id="add" class="tab-pane fade in active">';
+                                echo '<form name="form" method="post" action="add_exhibit.php">';
+                                echo'   展演日期：<input type="text" size="45" name="date"  /> <br>
+                                        展演名稱：<input type="text" size="45" name="title" /> <br>
+                                        展演作者：<input type="text" size="45" name="author"  /> <br>
+                                        展演地點：<input type="text" size="45" name="place" /> <br>                                       
+                                      
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+               </div>
+              </div>         
+                 <hr>';
+                                $id = $_SESSION['id'];
+
+                                $date = $_SESSION['date'];
+                                $author = $_SESSION['author'];
+                                $title = $_SESSION['title'];
+                                $place = $_SESSION['place'];
+                                //修改
+                                echo"
+                                
+        <form name=\"form\" method=\"post\" action=\"update_exhibit.php\">
+        <div class=\"container\">
+        展演選項：
+  <select name='number' id='form' >";
+                                $res = mysqli_query($link,$sql);
+                                $i=0;
+                                while($rs=mysqli_fetch_array($res)) {
+                                    $i++;
+                                    $x=$rs["number"];
+                                    echo"<option name=\"number\" value=\"$x\">$i</option>";
+                                }
+                                echo"
+  </select>
+                <br>
+                      展演日期：<input type=\"text\" size=\"45\" name=\"date\"  /> <br>
+                      展演名稱：<input type=\"text\" size=\"45\" name=\"title\" /> <br>
+                      展演作者：<input type=\"text\" size=\"45\" name=\"author\"  /> <br>
+                      展演地點：<input type=\"text\" size=\"45\" name=\"place\" /> <br>              
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+                <hr>";
+                                //刪除
+                                echo "
+            <form name=\"form\" method=\"post\" action=\"delete_exhibit.php\">
+             <div class=\"container\">
+              展演選項：
+            <select name='number' id='form'>";
+                                $re = mysqli_query($link,$sql);
+                                $j=1;
+                                while($rd=mysqli_fetch_array($re)) {
+                                    $d=$rd["number"];
+                                    echo"<option name=\"number\" value=\"$d\">$j</option>";
+                                    $j++;
+                                }
+                                echo"</select> <br>";
+                                echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                                echo" <form>
+               
+                    </div>";
+                            }else{
+                            }
+                            ?>
+
+                        </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <li><a href="course.php" >本學期開課課程</a></li>
-            </div>
-            <div class="well">
-                <li><a href="semiconductor.php" >半導體教學</a></li>
-            </div>
-            <div class="well">
-                <li><a href="tutorclass.php" >學輔時間課程</a></li>
-            </div>
-        </div>
+
+
     </div>
 </div>
 

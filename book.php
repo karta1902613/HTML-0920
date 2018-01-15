@@ -13,11 +13,25 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .row.content {
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <style>
+  .row.content {
+            background-color: #faf3d5;
+            height: auto;
+        }
+</style>"  ;
+    }else{
+        echo "<style>
+  .row.content {
             background-color: #F0FAF0;
             height: auto;
         }
+</style> "  ;
+    }
+    ?>
+    <style>
+
         /*table*/
         .tb_main {
             border-collapse: collapse;
@@ -113,18 +127,18 @@ session_start();
         include("mysql_connect.inc.php");
         $sql = "SELECT * FROM Papers";
         $result = mysqli_query($link,$sql);
-        $row = mysqli_fetch_row($result);
+//        $row = mysqli_fetch_row($result);
         ?>
         <table cellpadding="0" cellspacing="0" class="tb_main" align="center">
             <?php
             $num = 1;
+
             while($row=mysqli_fetch_array($result))
             {
 
                 echo "<tr class=\"odd\">";
                 echo "<th>";
                 echo $num;
-                //echo $row["number"];
                 echo "</th>";
                 echo "<th>";
                 echo $row["title"]."<br>";
@@ -146,10 +160,10 @@ session_start();
      
               <div id="add" class="tab-pane fade in active">';
             echo '<form name="form" method="post" action="addPapers.php">';
-            echo"  論文編號：<input type='text' size='5%' name='number' value='$num' readonly=\"readonly\"  /> <br>";
-            echo'   論文名稱：<input type="text" size="80%" name="title"  /> <br>
-                論文作者：<input type="text" size="80%" name="author"  /> <br>
-                論文日期：<input type="text" size="50%" name="date" /> <br>
+            echo"  <input type='hidden' size='5%' name='number' value='$num' readonly=\"readonly\"  /> <br>";
+            echo'   論文名稱：<input type="text" size="45%" name="title"  /> <br>
+                論文作者：<input type="text" size="45" name="author"  /> <br>
+                論文日期：<input type="text" size="40" name="date" /> <br>
                 <p align="center"><input type="submit" name="button"  value="新增" /></p>
                 </form>
                 </div>
@@ -169,15 +183,19 @@ session_start();
         論文編號：
   <select name='number' id='form' >
   ";
-            for( $i=1 ; $i<$num ; $i++ ){
-                echo"<option name=\"number\" value=$i>$i</option>";
+            $res = mysqli_query($link,$sql);
+            $i=0;
+            while($rs=mysqli_fetch_array($res)) {
+                $i++;
+                $x=$rs["number"];
+                echo"<option name=\"number\" value=\"$x\">$i</option>";
             }
             echo"
 
 </select>
-                <br>   論文名稱：<input type=\"text\" size=\"80%\" name=\"title\" value=$row[1] > <br>
-                論文作者：<input type=\"text\" size=\"80%\" name=\"author\" value=$row[2] > <br>
-                論文日期：<input type=\"text\" size=\"50%\" name=\"date\"  value=$row[3]> <br>
+                <br>   論文名稱：<input type=\"text\" size=\"45\" name=\"title\" value=$row[1] > <br>
+                論文作者：<input type=\"text\" size=\"45\" name=\"author\" value=$row[2] > <br>
+                論文日期：<input type=\"text\" size=\"40\" name=\"date\"  value=$row[3]> <br>
                  <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
                 </form>
                 </div>
@@ -191,9 +209,12 @@ session_start();
             <select name='number' id='form'>
                 ";
 
-            for( $d=1 ; $d<$num ; $d++ ){
-                echo"<option name=\"number\" value=$d>$d</option>";
-
+            $re = mysqli_query($link,$sql);
+            $j=1;
+            while($rd=mysqli_fetch_array($re)) {
+                $d=$rd["number"];
+                echo"<option name=\"number\" value=\"$d\">$j</option>";
+                $j++;
             }
             echo"</select> <br>";
             echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";

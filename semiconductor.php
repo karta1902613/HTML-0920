@@ -10,7 +10,13 @@ session_start();
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/knowledge/https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/adminstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/style.css\"> "  ;
+    }
+    ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -52,9 +58,28 @@ session_start();
     <div class="row content">
         <div class="col-sm-2 sidenav">
             <p class= text-centeralign="center"><img src="chencn.jpg" width="100%" alt="陳兆南老師"></p>
-            <li>Tel：+886-4-23323456  ext.48019</li>
-            <li>Office：8019</li>
-            <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
+            <?php
+            include("mysql_connect.inc.php");
+            $sqp = "SELECT * FROM Profile";
+            $res = mysqli_query($link,$sqp);
+            $ro = mysqli_fetch_row($res);
+            echo"<li>Tel："; echo$ro[0];  echo"</li>";
+            echo"<li>Office："; echo$ro[1];  echo"</li>";
+            echo"<li>E-mail：<a href=\"mailto:$ro[2]\"> $ro[2]</a></li>";
+            if($_SESSION['id']!=null){
+                $tel = $_SESSION['tel'];
+                $office = $_SESSION['office'];
+                $email = $_SESSION['email'];
+                echo "<form name=\"form\" method=\"post\" action=\"update_profile.php\"><div align='right'>";
+
+                echo "Tel：<input type=\"text\" name=\"tel\" size='20'  value= $ro[0]> <br>";
+                echo "Office：<input type=\"text\" name=\"office\" size='20'  value=$ro[1]> <br>";
+                echo "E-mail：<input type=\"text\" name=\"email\" size='20'  value=$ro[2]> <br>";
+                echo "<input type=\"submit\" name=\"button\" value=\"修改\" />";
+                echo "</div></form>";
+
+            }else{}
+            ?>
         </div>
         <div class="col-sm-8 text-left" >
             <h3>半導體教學</h3>

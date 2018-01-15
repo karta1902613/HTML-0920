@@ -1,0 +1,48 @@
+.tb_main {
+    border-collapse: collapse;
+    border: 2px solid #76a8ff;
+    font: normal 80%/140% verdana, arial, helvetica, sans-serif;
+    color: #222222;
+    background: #fffff0;
+}
+.tb_main caption {
+    padding: 0 .4em .4em;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    background: transparent;
+}
+.tb_main td, th {
+    border-left: 1px solid #76a8ff;
+    border-bottom: 1px solid #76a8ff;
+    padding: .3em;
+}
+.tb_main thead th, tfoot th {
+    border: 1px solid #76a8ff;
+    font-size: 1em;
+    font-weight: bold;
+    color: #444;
+    background: #dbd9c0;
+}
+.tb_main td a {
+    background: transparent;
+    color: #222222;
+    text-decoration: none;
+    border-bottom: 1px dotted #76a8ff;
+}
+.tb_main th a {
+    background: transparent;
+    color: #72724c;
+    text-decoration: none;
+    font-weight:bold;
+    border-bottom: 1px dotted #76a8ff;
+}
+.tb_main .odd {
+    color: #222222;
+    background: #e6fff1;
+}
+.tb_main tr:hover {
+    color: #333;
+    background: #fff;
+}

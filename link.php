@@ -10,7 +10,13 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/adminstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/style.css\"> "  ;
+    }
+    ?>
 </head>
 <body>
 
@@ -57,9 +63,11 @@ session_start();
         <div class="col-sm-8 text-left">
             <h1>常用連結</h1>
             <hr>
-            <h3>亞洲大學:<a href="http://www.asia.edu.tw/">http://www.asia.edu.tw/</a></h3>
-            <h3>亞洲大學資工系:<a href="http://csie.asia.edu.tw/">http://csie.asia.edu.tw/</a></h3>
-           
+
+            <a href="http://asia.edu.tw/"><img src="asia.gif" width=" 45%"></a>
+            <a href="http://csie.asia.edu.tw/"><img src="csie.png"width="45%"></a>
+
+
 
         </div>
         <div class="col-sm-2 sidenav">

@@ -21,13 +21,13 @@ if($_SESSION['id'] != null)
     if(mysqli_query($link,$sql_update))
     {
         echo '修改成功!';
-        echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
+        echo '<meta http-equiv=REFRESH CONTENT=2;url=book.php>';
         echo '<a href="book.php">跳轉失敗請點我</a>';
     }
     else
     {
         echo '修改失敗!';
-        echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
+        echo '<meta http-equiv=REFRESH CONTENT=2;url=book.php>';
         echo '<a href="book.php">跳轉失敗請點我</a>';
     }
 }

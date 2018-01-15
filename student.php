@@ -10,8 +10,22 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/autoadmstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/autostyle.css\"> "  ;
+    }
+    ?>
+
 </head>
+<style>
+    table, th, td {
+        border: 3px solid #c5e3ff;
+        border-collapse: collapse;
+        font-size:large;
+    }
+</style>
 <body>
 
 <nav class="navbar navbar-inverse">
@@ -47,43 +61,111 @@ session_start();
 </nav>
 
 <div class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-            <p class= text-centeralign="center"><img src="chencn.jpg" width="100%" alt="陳兆南老師"></p>
-            <li>Tel：+886-4-23323456  ext.48019</li>
-            <li>Office：8019</li>
-            <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
-        </div>
-        <div class="col-sm-8 text-left">
-            <h1>學生</h1>
+    <div class="row content" a>
 
+        <div>
+            <h1 align="center">學生</h1>
             <hr>
-            <h3>薛羽利(博士班)</h3>
-            <h3>聯絡方式：</h3>
-            <h4><a href="maulto:macoto0808@hotmail.com">macoto0808@hotmail.com</a> </h4>
-            <h3>研究方向：</h3>
-            <h4>透明導電薄膜材料開發與特性研究</h4>
-            <h4>奈米抗菌材料開發與特性研究</h4>
-            <h4>超級電容器電極材料開發與特性研究</h4>
-            <hr>
-            <h3>何映融(博士班)</h3>
-            <h3>聯絡方式：</h3>
-            <h4><a href="maulto:yingrong0702@gmail.com">yingrong0702@gmail.com</a> </h4>
-            <h3>研究方向：</h3>
-            <h4>氧化物透明導電薄膜材料研究</h4>
+            <?php
+            include("mysql_connect.inc.php");
+            $sql = "SELECT * FROM Student";
+            $result = mysqli_query($link,$sql);
+
+            ?>
+            <table cellpadding="0" cellspacing="0" class="tb_main" align="center">
+                <?php
+                $num = 1;
+
+                while($row=mysqli_fetch_array($result))
+                {
+                    echo"<tr bgcolor='#ffefd5'>";
+                    echo"<th>";
+                    echo "學生姓名：".$row["name"] ."<br>";
+                    echo "聯絡方式：".$row["email"] ."<br>";
+                    echo "研究方向：".$row["research"] ;
+                    echo"</th>";
+                    echo"</tr>";
+                    $num ++;
+                }
+
+                ?>
+            </table>
+
+            <?php
+            if($_SESSION['id'] != null){
+
+                echo '<hr>';
+                echo' <div class="container">
+     
+              <div id="add" class="tab-pane fade in active">';
+                echo '<form name="form" method="post" action="add_student.php">';
+
+                echo'   學生姓名：<input type="text" size="5" name="name"  /> <br>
+                        聯絡方式：<input type="text" size="45" name="email"  /> <br>
+                        研究方向：<input type="text" size="45" name="research" /> <br>
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+                </div>
+                 </div>
+                 
+                 <hr>
+                 ';
+                $id = $_SESSION['id'];
+
+                $name = $_SESSION['name'];
+                $email = $_SESSION['email'];
+                $research = $_SESSION['research'];
+
+                echo"
+        <form name=\"form\" method=\"post\" action=\"update_student.php\">
+        <div class=\"container\">
+        學生選項：
+  <select name='number' id='form' >
+  ";
+
+                $res = mysqli_query($link,$sql);
+                while($rs=mysqli_fetch_array($res)) {
+                    $x=$rs["number"];
+                    echo"<option name=\"number\" value=\"$x\">";echo $rs["name"];echo "</option>";
+                }
+                echo"
+</select>
+                <br>
+                       學生姓名：<input type=\"text\" size=\"5\" name=\"name\" value=$row[1] > <br>
+                       聯絡方式：<input type=\"text\" size=\"45\" name=\"email\" value=$row[2] > <br>
+                       研究方向：<input type=\"text\" size=\"45\" name=\"research\"  value=$row[3]> <br>
+                       
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+               <hr>
+              
+           
+           
+            <form name=\"form\" method=\"post\" action=\"delete_student.php\">
+             <div class=\"container\">
+              學生選項：
+            <select name='number' id='form'>
+                ";
+
+                $re = mysqli_query($link,$sql);
+                while($rd=mysqli_fetch_array($re)) {
+                    $d=$rd["number"];
+                    echo"<option name=\"number\" value=\"$d\">";echo $rd["name"];echo "</option>";
+
+                }
+                echo"</select> <br>";
+                echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                echo" </form>
+               
+                    </div>
+            ";
+            }else{
+            }
+            ?>
 
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <li><a href="course.php" >本學期開課課程</a></li>
-            </div>
-            <div class="well">
-                <li><a href="semiconductor.php" >半導體教學</a></li>
-            </div>
-            <div class="well">
-                <li><a href="tutorclass.php" >學輔時間課程</a></li>
-            </div>
-        </div>
+
     </div>
 </div>
 

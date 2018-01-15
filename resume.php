@@ -10,7 +10,13 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/adminstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/style.css\"> "  ;
+    }
+    ?>
 </head>
 <body>
 
@@ -50,9 +56,28 @@ session_start();
     <div class="row content">
         <div class="col-sm-2 sidenav">
             <p class= text-centeralign="center"><img src="chencn.jpg" width="100%" alt="陳兆南老師"></p>
-            <li>Tel：+886-4-23323456  ext.48019</li>
-            <li>Office：8019</li>
-            <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
+            <?php
+            include("mysql_connect.inc.php");
+            $sqe = "SELECT * FROM Profile";
+            $res = mysqli_query($link,$sqe);
+            $ro = mysqli_fetch_row($res);
+            echo"<li>Tel："; echo$ro[0];  echo"</li>";
+            echo"<li>Office："; echo$ro[1];  echo"</li>";
+            echo"<li>E-mail：<a href=\"mailto:$ro[2]\"> $ro[2]</a></li>";
+            if($_SESSION['id']!=null){
+                $tel = $_SESSION['tel'];
+                $office = $_SESSION['office'];
+                $email = $_SESSION['email'];
+                echo "<form name=\"form\" method=\"post\" action=\"update_profile.php\"><div align='right'>";
+
+                echo "Tel：<input type=\"text\" name=\"tel\" size='20'  value= $ro[0]> <br>";
+                echo "Office：<input type=\"text\" name=\"office\" size='20'  value=$ro[1]> <br>";
+                echo "E-mail：<input type=\"text\" name=\"email\" size='20'  value=$ro[2]> <br>";
+                echo "<input type=\"submit\" name=\"button\" value=\"修改\" />";
+                echo "</div></form>";
+
+            }else{}
+            ?>
         </div>
         <div class="col-sm-8 text-left">
             <div class="container">
@@ -67,20 +92,216 @@ session_start();
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <h3>學歷</h3>
-                        <li>長庚大學 電子工程 博士</li>
+                        <?php
+                        //新增
+                        include("mysql_connect.inc.php");
+                        $sqd = "SELECT * FROM Education";
+                        $ree = mysqli_query($link,$sqd);
+                        ?>
+                            <?php
+                            while($row=mysqli_fetch_array($ree)){
+                                echo "<li>", $row[edu]."</li>";
+                            }
+                            ?>
+                        <?php
+                        if($_SESSION['id'] != null){
+                            echo '<hr>';
+                            echo' 
+                    <div class="container">
+                        <div id="add" class="tab-pane fade in active">';
+                            echo '<form name="form" method="post" action="add_education.php">';
+                            echo'   學歷：<input type="text" size="30" name="edu"  /> <br>                                    
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+               </div>
+              </div>         
+                 <hr>';
+                            $id = $_SESSION['id'];
+
+                            $edu = $_SESSION['edu'];
+                            $number = $_SESSION['number'];
+
+                            //修改
+                            echo"
+                                
+        <form name=\"form\" method=\"post\" action=\"update_education.php\">
+        <div class=\"container\">
+        學歷選項：
+  <select name='number' id='form' >";
+                            $res = mysqli_query($link,$sqd);
+                            while($rs=mysqli_fetch_array($res)) {
+                                $x=$rs["number"];
+                                echo"<option name=\"number\" value=\"$x\">";echo $rs["edu"];echo "</option>";
+                            }
+                            echo"
+  </select>
+                <br>
+                      學歷：<input type=\"text\" size=\"30\"  name=\"edu\"  /> <br>                                     
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+                <hr>";
+                            //刪除
+                            echo "       
+            <form name=\"form\" method=\"post\" action=\"delete_education.php\">
+             <div class=\"container\">
+              學歷選項：
+            <select name='number' id='form'>";
+                            $re = mysqli_query($link,$sqd);
+                            while($rd=mysqli_fetch_array($re)) {
+                                $d=$rd["number"];
+                                echo"<option name=\"number\" value=\"$d\">";echo $rd["edu"];echo "</option>";
+                            }
+                            echo"</select> <br>";
+                            echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                            echo" </form>
+               
+                    </div>";
+                        }else{
+                        }
+                        ?>
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <h3>經歷</h3>
-                        <li>亞洲大學_資訊工程學系---助理教授</li>
-                        <li>南開科技大學 電子工程學系---助理教授</li>
-                        <li>工研院_影像顯示科技中心---研發工程師</li>
-                        <li>中華映管股份有限公司---研發工程師</li>
+                        <?php
+                        //新增
+                        include("mysql_connect.inc.php");
+                        $sqx = "SELECT * FROM Experience";
+                        $rex = mysqli_query($link,$sqx);
+                        ?>
+                        <?php
+                        while($row=mysqli_fetch_array($rex)){
+                            echo "<li>", $row[exp]."</li>";
+                        }
+                        ?>
+                        <?php
+                        if($_SESSION['id'] != null){
+                            echo '<hr>';
+                            echo' 
+                    <div class="container">
+                        <div id="add" class="tab-pane fade in active">';
+                            echo '<form name="form" method="post" action="add_experience.php">';
+                            echo'   經歷：<input type="text" size="30" name="exp"  /> <br>                                    
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+               </div>
+              </div>         
+                 <hr>';
+                            $id = $_SESSION['id'];
+
+                            $exp = $_SESSION['exp'];
+                            $number = $_SESSION['number'];
+
+                            //修改
+                            echo"
+                                
+        <form name=\"form\" method=\"post\" action=\"update_experience.php\">
+        <div class=\"container\">
+        經歷選項：
+  <select name='number' id='form' >";
+                            $rex = mysqli_query($link,$sqx);
+                            while($rs=mysqli_fetch_array($rex)) {
+                                $ex=$rs["number"];
+                                echo"<option name=\"number\" value=\"$ex\">";echo $rs["exp"];echo "</option>";
+                            }
+                            echo"
+  </select>
+                <br>
+                      經歷：<input type=\"text\" size=\"30\"  name=\"exp\"  /> <br>                                     
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+                <hr>";
+                            //刪除
+                            echo "       
+            <form name=\"form\" method=\"post\" action=\"delete_experience.php\">
+             <div class=\"container\">
+              經歷選項：
+            <select name='number' id='form'>";
+                            $re = mysqli_query($link,$sqx);
+                            while($rd=mysqli_fetch_array($re)) {
+                                $d=$rd["number"];
+                                echo"<option name=\"number\" value=\"$d\">";echo $rd["exp"];echo "</option>";
+                            }
+                            echo"</select> <br>";
+                            echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                            echo" </form>
+               
+                    </div>";
+                        }else{
+                        }
+                        ?>
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         <h3>專長</h3>
-                        <li>顯示技術</li>
-                        <li>媒體與互動設計</li>
-                        <li>數位學習內容</li>
+                        <?php
+                        //新增
+                        include("mysql_connect.inc.php");
+                        $sqk = "SELECT * FROM Skill";
+                        $rek = mysqli_query($link,$sqk);
+                        ?>
+                        <?php
+                        while($row=mysqli_fetch_array($rek)){
+                            echo "<li>", $row[skill]."</li>";
+                        }
+                        ?>
+                        <?php
+                        if($_SESSION['id'] != null){
+                            echo '<hr>';
+                            echo' 
+                    <div class="container">
+                        <div id="add" class="tab-pane fade in active">';
+                            echo '<form name="form" method="post" action="add_skill.php">';
+                            echo'   專長：<input type="text" size="30" name="skill"  /> <br>                                    
+                <p align="center"><input type="submit" name="button"  value="新增" /></p>
+                </form>
+               </div>
+              </div>         
+                 <hr>';
+                            $id = $_SESSION['id'];
+
+                            $skill = $_SESSION['skill'];
+                            $number = $_SESSION['number'];
+
+                            //修改
+                            echo"
+                                
+        <form name=\"form\" method=\"post\" action=\"update_skill.php\">
+        <div class=\"container\">
+        專長選項：
+  <select name='number' id='form' >";
+                            $res = mysqli_query($link,$sqk);
+                            while($rs=mysqli_fetch_array($res)) {
+                                $sx=$rs["number"];
+                                echo"<option name=\"number\" value=\"$sx\">";echo $rs["skill"];echo "</option>";
+                            }
+                            echo"
+  </select>
+                <br>
+                      專長：<input type=\"text\" size=\"30\"  name=\"skill\"  /> <br>                                     
+                 <p align=\"center\"><input type=\"submit\" name=\"button\"  value=\"修改\" /></p>
+                </form>
+               </div>
+                <hr>";
+                            //刪除
+                            echo "       
+            <form name=\"form\" method=\"post\" action=\"delete_skill.php\">
+             <div class=\"container\">
+              學歷選項：
+            <select name='number' id='form'>";
+                            $re = mysqli_query($link,$sqk);
+                            while($rd=mysqli_fetch_array($re)) {
+                                $d=$rd["number"];
+                                echo"<option name=\"number\" value=\"$d\">";echo $rd["skill"];echo "</option>";
+                            }
+                            echo"</select> <br>";
+                            echo "<p align='center'><input  type=\"submit\" name=\"button\" value=\"刪除\" /></p>";
+                            echo" </form>
+               
+                    </div>";
+                        }else{
+                        }
+                        ?>
                     </div>
                     <div id="menu3" class="tab-pane fade">
                     </div>
@@ -89,13 +310,13 @@ session_start();
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
-                <li><a href="course.html" >本學期開課課程</a></li>
+                <li><a href="course.php" >本學期開課課程</a></li>
             </div>
             <div class="well">
-                <li><a href="semiconductor.html" >半導體教學</a></li>
+                <li><a href="semiconductor.php" >半導體教學</a></li>
             </div>
             <div class="well">
-                <li><a href="tutorclass.html" >學輔時間課程</a></li>
+                <li><a href="tutorclass.php" >學輔時間課程</a></li>
             </div>
         </div>
     </div>

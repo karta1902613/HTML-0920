@@ -10,10 +10,23 @@ session_start();
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/knowledge/https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SESSION['id'] != null){
+        echo " <link rel=\"stylesheet\" href=\"css/adminstyle.css\">"  ;
+    }else{
+        echo "<link rel=\"stylesheet\" href=\"css/style.css\"> "  ;
+    }
+    ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+    table, th, td {
+        border: 2px solid #c5e3ff;
+        border-collapse: collapse;
+        font-size:medium;
+    }
+</style>
 <body bgcolor="#a8d9f1">
 
 <nav class="navbar navbar-inverse">
@@ -52,19 +65,153 @@ session_start();
     <div class="row content">
         <div class="col-sm-2 sidenav">
             <p class= text-centeralign="center"><img src="chencn.jpg" width="100%" alt="陳兆南老師"></p>
-            <li>Tel：+886-4-23323456  ext.48019</li>
-            <li>Office：8019</li>
-            <li>E-mail：<a href="mailto:chencn@asia.edu.tw"> chencn@asia.edu.tw</a></li>
+            <?php
+            include("mysql_connect.inc.php");
+            $sqp = "SELECT * FROM Profile";
+            $res = mysqli_query($link,$sqp);
+            $ro = mysqli_fetch_row($res);
+            echo"<li>Tel："; echo$ro[0];  echo"</li>";
+            echo"<li>Office："; echo$ro[1];  echo"</li>";
+            echo"<li>E-mail：<a href=\"mailto:$ro[2]\"> $ro[2]</a></li>";
+            if($_SESSION['id']!=null){
+                $tel = $_SESSION['tel'];
+                $office = $_SESSION['office'];
+                $email = $_SESSION['email'];
+                echo "<form name=\"form\" method=\"post\" action=\"update_profile.php\"><div align='right'>";
+
+                echo "Tel：<input type=\"text\" name=\"tel\" size='20'  value= $ro[0]> <br>";
+                echo "Office：<input type=\"text\" name=\"office\" size='20'  value=$ro[1]> <br>";
+                echo "E-mail：<input type=\"text\" name=\"email\" size='20'  value=$ro[2]> <br>";
+                echo "<input type=\"submit\" name=\"button\" value=\"修改\" />";
+                echo "</div></form>";
+
+            }else{}
+            ?>
         </div>
         <div class="col-sm-8 text-left" >
             <h1>106年數位內容組資工1B_導師班</h1>
             <hr>
             <div id="sites-canvas-main" class="sites-canvas-main">
                 <div id="sites-canvas-main-content">
-                    <table xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" class="sites-layout-name-one-column sites-layout-hbox"><tbody>
+                    <table>
+                        <tr align="center" bgcolor="#6495ed">
+                            <td width="15"><b>週數</b></td>
+                            <td ><b>日期</b></td>
+                            <td><b>學輔課程內容</b></td>
+                            <td><b>備註</b></td>
+                        </tr>
+                        <tr >
+                            <td align="center">1</td>
+                            <td>2017/09/20</td>
+                            <td>班級幹部選舉</td>
+                            <td></td>
+                        </tr>
+                        <tr >
+                            <td align="center">2</td>
+                            <td>2017/09/27</td>
+                            <td>期初導師會議暨班級導師輔導知能研習	</td>
+                            <td>不可辦理其他學輔課程。</td>
+                        </tr>
+                        <tr >
+                            <td align="center">3</td>
+                            <td>2017/10/04</td>
+                            <td>中秋節放假</td>
+                            <td></td>
+                        </tr>
+                        <tr >
+                            <td align="center">4</td>
+                            <td>2017/10/11</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
                         <tr>
-                            <td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><br /><span style="font-size:14pt;font-family:標楷體"><span lang="EN-US" style="background:yellow">1.2017年11</span><span style="background:yellow">月<span lang="EN-US">01</span>日<span lang="EN-US">(</span>三<span lang="EN-US">)</span>第<span lang="EN-US">8</span>節</span>於本班學輔課程地點<span lang="EN-US" style="background:yellow">I426</span><span style="background:yellow">教室</span>進行『數位科技使用的自我探索測驗』課程，</span><span style="background-color:transparent;font-family:標楷體;font-size:14pt">請班上同學出席參與。</span><br /><br /><table border="1" cellpadding="1" cellspacing="0" style="padding:0px;color:rgb(51,51,51);font-size:smaller;border-color:rgb(192,192,255);border-width:1px;border-style:double;font-family:新細明體;border-collapse:collapse;width:997.5px"><tbody style="padding:0px;margin:0px"><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"></tr><tr style="padding:0px;margin:0px;color:cornflowerblue;background-color:lavender;font-size:medium"><th style="padding:0px;margin:0px">週數</th><th style="padding:0px;margin:0px">日期</th><th style="padding:0px;margin:0px"><span style="padding:0px;margin:0px">學輔課程內容</span> <span style="padding:0px;margin:0px;color:rgb(204,51,0)"></span></th><th style="padding:0px;margin:0px"><a style="padding:0px;margin:0px;color:cornflowerblue">備註</a></th><th style="padding:0px;margin:0px">開課單位</th><th style="padding:0px;margin:0px">活動內容</th><th style="padding:0px;margin:0px">活動地點</th><th style="padding:0px;margin:0px">開課資訊</th></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">1</font></td><td style="padding:0px;margin:0px"><font size="3">2017/09/20</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">班級幹部選舉</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"><td style="padding:0px;margin:0px"><font size="3">2</font></td><td style="padding:0px;margin:0px"><font size="3">2017/09/27</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">期初導師會議暨班級導師輔導知能研習</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3">不可辦理其他學輔課程。</font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"><td style="padding:0px;margin:0px"><font size="3">3</font></td><td style="padding:0px;margin:0px"><font size="3">2017/10/04</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">中秋節放假</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">4</font></td><td style="padding:0px;margin:0px"><font size="3">2017/10/11</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"><td style="padding:0px;margin:0px"><font size="3">5</font></td><td style="padding:0px;margin:0px"><font size="3">2017/10/18</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">大一資訊能力前測</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3">教室提供考試，不可辦理其他學輔課程。</font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">6</font></td><td style="padding:0px;margin:0px"><font size="3">2017/10/25</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">班會時間</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">7</font></td><td style="padding:0px;margin:0px"><font size="3">2017/11/01</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">課程活動:數位科技使用的自我探索</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3">學務處諮商輔導組</font></td><td style="padding:0px;margin:0px"><font size="3">數位科技使用的自我探索</font></td><td style="padding:0px;margin:0px"><font size="3">學輔教室</font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">8</font></td><td style="padding:0px;margin:0px"><font size="3">2017/11/08</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"><td style="padding:0px;margin:0px"><font size="3">9</font></td><td style="padding:0px;margin:0px"><font size="3">2017/11/15</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">期中考週</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">10</font></td><td style="padding:0px;margin:0px"><font size="3">2017/11/22</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">11</font></td><td style="padding:0px;margin:0px"><font size="3">2017/11/29</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">班會時間</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">12</font></td><td style="padding:0px;margin:0px"><font size="3">2017/12/06</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">大一新生合唱比賽</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3">大一新生創意合唱比賽</font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">13</font></td><td style="padding:0px;margin:0px"><font size="3">2017/12/13</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">14</font></td><td style="padding:0px;margin:0px"><font size="3">2017/12/20</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">15</font></td><td style="padding:0px;margin:0px"><font size="3">2017/12/27</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">影片欣賞討論</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">16</font></td><td style="padding:0px;margin:0px"><font size="3">2018/01/03</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">班會時間</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap;color:black"><td style="padding:0px;margin:0px"><font size="3">17</font></td><td style="padding:0px;margin:0px"><font size="3">2018/01/10</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">導生晤談</font></span></td><td style="padding:0px;margin:0px;width:270px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td style="padding:0px;margin:0px"><font size="3"> </font></td><td align="left" style="padding:0px;margin:0px"></td></tr><tr style="padding:0px;margin:0px;border-style:none;white-space:nowrap"><td style="padding:0px;margin:0px"><font size="3">18</font></td><td style="padding:0px;margin:0px"><font size="3">2018/01/17</font></td><td style="padding:0px;margin:0px"><span style="padding:0px;margin:0px"><font size="3">期末考週</font></span></td><td style="padding:0px;margin:0px;width:270px"> </td><td style="padding:0px;margin:0px"> </td><td style="padding:0px;margin:0px"> </td><td style="padding:0px;margin:0px"> <br /><br /></td></tr></tbody></table></div></td></tr></tbody></table>
-                </div>
+                            <td align="center">5</td>
+                            <td>2017/10/18</td>
+                            <td>大一資訊能力前測</td>
+                            <td>教室提供考試，不可辦理其他學輔課程。</td>
+                        </tr>
+                        <tr>
+                            <td align="center">6</td>
+                            <td>2017/10/25</td>
+                            <td>班會時間</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">7</td>
+                            <td>2017/11/01</td>
+                            <td>課程活動:數位科技使用的自我探索</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">8</td>
+                            <td>2017/11/08</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">9</td>
+                            <td>2017/11/15</td>
+                            <td>期中考週</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">10</td>
+                            <td>2017/11/22</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">11</td>
+                            <td>2017/11/29</td>
+                            <td>班會時間</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">12</td>
+                            <td>2017/12/06</td>
+                            <td>大一新生合唱比賽</td>
+                            <td>大一新生創意合唱比賽</td>
+                        </tr>
+                        <tr>
+                            <td align="center">13</td>
+                            <td>2017/12/13</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">14</td>
+                            <td>2017/12/20</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">15</td>
+                            <td>2017/12/27</td>
+                            <td>影片欣賞與討論</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">16</td>
+                            <td>2017/01/03</td>
+                            <td>班會時間</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">17</td>
+                            <td>2017/01/10</td>
+                            <td>導生晤談</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center">18</td>
+                            <td>2017/01/17</td>
+                            <td>期末考週</td>
+                            <td></td>
+                        </tr>
+                        
+                    </table>
+                                </div>
+
             </div>
         </div>
         <div class="col-sm-2 sidenav">

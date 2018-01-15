@@ -10,7 +10,7 @@ $date = $_POST['date'];
 
 if($_SESSION['id'] != null){
     //新增資料進資料庫語法
-    $sql = "insert into Papers (number,title,author,date) values ('$number', '$title', '$author', '$date')";
+    $sql = "insert into Papers (title,author,date) values ('$title', '$author', '$date')";
     if(mysqli_query($link,$sql) ){
       echo '新增成功!';
       echo '<meta http-equiv=REFRESH CONTENT=2;url=book.php>';
